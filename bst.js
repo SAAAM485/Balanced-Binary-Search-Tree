@@ -43,7 +43,7 @@ class Tree {
         const sortedArray = mergeSort(array).filter((item, index, self) => {
             return self.indexOf(item) == index;
         });
-        const mid = sortedArray[Math.floor(sortedArray.length / 2)];
+        const mid = Math.floor(sortedArray.length / 2);
         const root = new Node(sortedArray[mid]);
         const queue = [
             [root, [0, mid - 1]],
@@ -321,16 +321,21 @@ class Tree {
     reBalance() {
         if (this.isBalanced()) {
             return;
+        } else {
+            const newSortedArray = [];
+            this.inOrder((node) => newSortedArray.push(node.value));
+            this.root = this.buildTree(newSortedArray);
         }
-        const newSortedArray = [];
-        this.inOrder((node) => newSortedArray.push(node.value));
-        this.root = this.buildTree(newSortedArray);
     }
 }
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.insert(80);
 tree.insert(6);
+tree.insert(1000);
+tree.insert(623);
+tree.insert(6222);
+tree.insert(325125);
 tree.prettyPrint(tree.root);
 console.log(tree.isBalanced());
 console.log(tree.reBalance());
